@@ -4,208 +4,201 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Mathis PEIFFER</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue: #1B4F8A; --blue-light: #2E6DB4; --blue-pale: #4A8FD4;
-    --dark: #1C2B3A; --dark-2: #243447; --dark-3: #2D3F54; --dark-4: #3A5068;
-    --light: #F0F4F8; --light-2: #D8E4F0; --muted: #8BA5BF;
-    --white: #FFFFFF; --accent: #E8A020; --accent-light: #F0B840; --green: #3DAA6E;
-    --bg-page: #F4F7FB; --bg-section: #FFFFFF; --bg-alt: #EEF2F8;
-    --text-main: #1C2B3A; --text-muted: #607A94;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Open Sans', sans-serif; color: #333; background: #fff; }
+
+  /* NAV */
+  nav {
+    background: #1B4F8A;
+    padding: 15px 40px;
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg-page); color: var(--text-main); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+  nav .logo { color: white; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 25px; }
+  nav ul a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; }
+  nav ul a:hover { color: white; }
 
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 3rem; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(27,79,138,0.12); box-shadow: 0 2px 20px rgba(27,79,138,0.08); }
-  .nav-logo { font-family: 'Bebas Neue', cursive; font-size: 1.5rem; letter-spacing: 3px; color: var(--blue); text-decoration: none; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
-  .nav-links a:hover { color: var(--blue); }
+  /* HERO */
+  .hero {
+    background: #1B4F8A;
+    color: white;
+    padding: 80px 40px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    min-height: 400px;
+  }
+  .hero img {
+    width: 180px; height: 220px;
+    object-fit: cover; object-position: center top;
+    border: 4px solid white;
+    flex-shrink: 0;
+  }
+  .hero-text h1 { font-size: 2.5rem; font-weight: 700; margin-bottom: 8px; }
+  .hero-text h2 { font-size: 1.1rem; font-weight: 300; opacity: 0.9; margin-bottom: 20px; }
+  .hero-text p { font-size: 0.95rem; opacity: 0.85; max-width: 550px; line-height: 1.7; margin-bottom: 25px; }
+  .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
+  .btn {
+    padding: 10px 25px; border: 2px solid white;
+    color: white; text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    transition: background 0.3s;
+  }
+  .btn:hover { background: rgba(255,255,255,0.2); }
+  .btn.filled { background: white; color: #1B4F8A; }
+  .btn.filled:hover { background: #eee; }
 
-  #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%); position: relative; overflow: hidden; }
-  #hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 70% at 80% 50%, rgba(46,109,180,0.25) 0%, transparent 70%); pointer-events: none; }
-  .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px; }
-  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 8rem 4rem 4rem 6rem; position: relative; z-index: 2; }
-  .hero-tag { display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(232,160,32,0.15); border: 1px solid rgba(232,160,32,0.4); color: var(--accent-light); font-size: 0.72rem; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; padding: 0.4rem 1rem; border-radius: 2px; margin-bottom: 2rem; width: fit-content; }
-  .hero-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-  .hero-name { font-family: 'Bebas Neue', cursive; font-size: clamp(4rem, 8vw, 7rem); line-height: 0.95; letter-spacing: 2px; color: var(--white); margin-bottom: 0.3rem; }
-  .hero-name span { color: var(--accent-light); }
-  .hero-sub { font-family: 'Bebas Neue', cursive; font-size: clamp(1.2rem, 2.5vw, 2rem); letter-spacing: 4px; color: var(--muted); margin-bottom: 2rem; }
-  .hero-desc { font-size: 1rem; color: var(--light-2); max-width: 480px; margin-bottom: 3rem; line-height: 1.8; }
-  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn-primary { background: var(--blue-light); color: var(--white); padding: 0.9rem 2.2rem; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s, transform 0.2s; display: inline-block; }
-  .btn-primary:hover { background: var(--blue-pale); transform: translateY(-2px); }
-  .btn-outline { border: 1px solid rgba(240,244,248,0.3); color: var(--light); padding: 0.9rem 2.2rem; text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: border-color 0.3s, color 0.3s; }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent-light); }
+  /* SECTIONS */
+  section { padding: 60px 40px; max-width: 1000px; margin: 0 auto; }
+  .section-title {
+    font-size: 1.6rem; font-weight: 700;
+    color: #1B4F8A; margin-bottom: 8px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #1B4F8A;
+    display: inline-block;
+  }
+  .section-subtitle { color: #666; font-size: 0.9rem; margin-bottom: 35px; margin-top: 5px; }
 
-  .hero-right { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .hero-photo-wrap { position: relative; z-index: 2; width: 300px; height: 380px; }
-  .hero-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 2px solid rgba(232,160,32,0.5); transform: translate(12px, 12px); }
-  .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-  .hero-stats { position: absolute; bottom: 2.5rem; left: 2rem; right: 2rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; z-index: 3; }
-  .stat { background: rgba(28,43,58,0.88); backdrop-filter: blur(8px); border: 1px solid rgba(46,109,180,0.2); padding: 1.2rem; text-align: center; }
-  .stat-num { font-family: 'Bebas Neue', cursive; font-size: 2.4rem; color: var(--accent-light); line-height: 1; display: block; }
-  .stat-label { font-size: 0.65rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+  /* PROFIL */
+  .profil-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+  .profil-text p { margin-bottom: 15px; line-height: 1.8; color: #444; font-size: 0.95rem; }
+  .infos-box { background: #f4f7fb; padding: 25px; border-left: 4px solid #1B4F8A; }
+  .info-ligne { margin-bottom: 18px; }
+  .info-ligne .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #1B4F8A; font-weight: 700; margin-bottom: 3px; }
+  .info-ligne .valeur { font-size: 0.95rem; color: #333; }
+  .linkedin-link {
+    display: inline-block; margin-top: 20px;
+    background: #0077B5; color: white;
+    padding: 10px 20px; text-decoration: none;
+    font-size: 0.85rem; font-weight: 600;
+  }
 
-  section { padding: 6rem; }
-  .section-header { margin-bottom: 4rem; }
-  .section-num { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--blue-light); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.8rem; display: block; }
-  .section-title { font-family: 'Bebas Neue', cursive; font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 2px; line-height: 1; color: var(--dark); }
-  .section-title span { color: var(--blue-light); }
-  .section-title.on-dark { color: var(--white); }
-  .section-title.on-dark span { color: var(--accent-light); }
-  .section-line { width: 60px; height: 3px; background: var(--blue-light); margin-top: 1.5rem; }
-  .section-line.gold { background: var(--accent); }
+  /* PARCOURS */
+  #parcours { background: #f4f7fb; max-width: 100%; padding: 60px 40px; }
+  #parcours .inner { max-width: 1000px; margin: 0 auto; }
+  .etape {
+    display: flex; gap: 25px;
+    margin-bottom: 30px; padding-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+  }
+  .etape:last-child { border-bottom: none; margin-bottom: 0; }
+  .etape-annee {
+    min-width: 130px; font-weight: 700;
+    color: #1B4F8A; font-size: 0.9rem; padding-top: 3px;
+  }
+  .etape-contenu h3 { font-size: 1rem; font-weight: 700; color: #222; margin-bottom: 4px; }
+  .etape-contenu .lieu { font-size: 0.85rem; color: #888; font-style: italic; margin-bottom: 8px; }
+  .etape-contenu p { font-size: 0.9rem; color: #555; line-height: 1.7; }
 
-  #about { background: var(--bg-section); }
-  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5rem; align-items: start; }
-  .about-text p { margin-bottom: 1.4rem; color: #3A5068; font-size: 1.02rem; }
-  .about-text p strong { color: var(--blue-light); font-weight: 600; }
-  .info-block { background: var(--bg-alt); border: 1px solid #D8E4F0; border-left: 3px solid var(--blue-light); padding: 1.2rem 1.4rem; margin-bottom: 0.8rem; }
-  .info-block-label { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; font-family: 'DM Mono', monospace; }
-  .info-block-value { color: var(--dark); font-size: 0.95rem; font-weight: 500; }
-  .linkedin-btn { display: inline-flex; align-items: center; gap: 0.7rem; background: #0077B5; color: white; padding: 0.8rem 1.4rem; text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; margin-top: 1.2rem; transition: background 0.3s; }
-  .linkedin-btn:hover { background: #005885; }
+  /* PERSONNALITE */
+  .perso-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+  .mbti-box { background: #f4f7fb; padding: 25px; border-left: 4px solid #1B4F8A; }
+  .mbti-type { font-size: 2rem; font-weight: 700; color: #1B4F8A; margin-bottom: 5px; }
+  .mbti-nom { font-size: 0.85rem; color: #888; margin-bottom: 20px; }
+  .trait { margin-bottom: 14px; }
+  .trait-label { font-size: 0.85rem; color: #444; margin-bottom: 5px; display: flex; justify-content: space-between; }
+  .trait-pct { font-weight: 700; color: #1B4F8A; }
+  .barre-bg { height: 6px; background: #ddd; border-radius: 3px; }
+  .barre-fill { height: 6px; background: #1B4F8A; border-radius: 3px; }
+  .mbti-desc { font-size: 0.88rem; color: #555; line-height: 1.7; margin-top: 15px; }
+  .ikigai-box {}
+  .ikigai-box h3 { font-size: 1rem; font-weight: 700; color: #1B4F8A; margin-bottom: 10px; }
+  .ikigai-box p { font-size: 0.88rem; color: #666; margin-bottom: 15px; }
+  .ikigai-box img { width: 100%; border: 1px solid #ddd; }
+  .ikigai-resume {
+    background: #f4f7fb; border-left: 4px solid #1B4F8A;
+    padding: 15px; margin-top: 15px;
+    font-size: 0.88rem; color: #444; font-style: italic; line-height: 1.6;
+  }
 
-  #parcours { background: var(--bg-alt); }
-  .timeline { position: relative; padding-left: 2rem; }
-  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--blue-light), transparent); }
-  .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 2.5rem; }
-  .timeline-dot { position: absolute; left: -2.65rem; top: 0.3rem; width: 14px; height: 14px; background: var(--blue-light); border-radius: 50%; border: 2px solid var(--bg-alt); box-shadow: 0 0 12px rgba(46,109,180,0.4); }
-  .timeline-year { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--blue-light); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.4rem; }
-  .timeline-title { font-size: 1.15rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
-  .timeline-place { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.7rem; font-style: italic; }
-  .timeline-desc { color: #3A5068; font-size: 0.95rem; }
+  /* COMPETENCES */
+  #competences { background: #f4f7fb; max-width: 100%; padding: 60px 40px; }
+  #competences .inner { max-width: 1000px; margin: 0 auto; }
+  .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .comp-card { background: white; padding: 20px; border: 1px solid #ddd; border-top: 3px solid #1B4F8A; }
+  .comp-card h3 { font-size: 0.95rem; font-weight: 700; color: #1B4F8A; margin-bottom: 12px; }
+  .comp-card ul { list-style: none; }
+  .comp-card ul li { font-size: 0.85rem; color: #555; padding: 5px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+  .comp-card ul li:last-child { border-bottom: none; }
+  .tag { font-size: 0.72rem; font-weight: 600; padding: 2px 7px; border-radius: 3px; }
+  .tag.ok { background: #d5f0e2; color: #1a6b3c; }
+  .tag.ec { background: #d5e8f0; color: #1B4F8A; }
 
-  #personnalite { background: var(--dark); }
-  .perso-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .mbti-card { background: var(--dark-2); border: 1px solid var(--dark-3); padding: 2.5rem; }
-  .mbti-type { font-family: 'Bebas Neue', cursive; font-size: 3.5rem; color: var(--accent-light); letter-spacing: 5px; line-height: 1; margin-bottom: 0.3rem; }
-  .mbti-name { font-size: 0.9rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2rem; font-family: 'DM Mono', monospace; }
-  .trait-bar { margin-bottom: 1.2rem; }
-  .trait-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.82rem; }
-  .trait-name { color: var(--light); font-weight: 500; }
-  .trait-pct { color: var(--accent-light); font-family: 'DM Mono', monospace; }
-  .bar-bg { height: 4px; background: var(--dark-4); border-radius: 2px; overflow: hidden; }
-  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue-light), var(--blue-pale)); border-radius: 2px; }
-  .mbti-desc { margin-top: 1.5rem; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  /* EXPERIENCES */
+  .exp-card {
+    border: 1px solid #ddd; margin-bottom: 20px;
+    display: grid; grid-template-columns: 160px 1fr;
+    overflow: hidden;
+  }
+  .exp-gauche { background: #1B4F8A; padding: 20px; color: white; }
+  .exp-annee { font-size: 1.4rem; font-weight: 700; }
+  .exp-entreprise { font-size: 0.78rem; opacity: 0.85; margin-top: 5px; line-height: 1.4; }
+  .exp-type { font-size: 0.7rem; margin-top: 12px; background: rgba(255,255,255,0.2); padding: 3px 8px; display: inline-block; }
+  .exp-droite { padding: 20px; }
+  .exp-droite h3 { font-size: 1rem; font-weight: 700; color: #222; margin-bottom: 4px; }
+  .exp-droite .role { font-size: 0.85rem; color: #1B4F8A; font-style: italic; margin-bottom: 10px; }
+  .exp-droite p { font-size: 0.88rem; color: #555; line-height: 1.7; }
 
-  .ikigai-section h3 { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; letter-spacing: 2px; color: var(--white); margin-bottom: 0.5rem; }
-  .ikigai-section p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
-  .ikigai-img-wrap { background: var(--white); padding: 1rem; border: 1px solid var(--dark-3); }
-  .ikigai-img-wrap img { width: 100%; display: block; }
-  .ikigai-resume { background: rgba(46,109,180,0.12); border: 1px solid rgba(46,109,180,0.25); border-left: 3px solid var(--blue-light); padding: 1.2rem 1.5rem; margin-top: 1rem; }
-  .ikigai-resume-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.5rem; }
-  .ikigai-resume-text { color: var(--light-2); font-size: 0.9rem; font-style: italic; line-height: 1.6; }
+  /* SAE */
+  #sae { background: #f4f7fb; max-width: 100%; padding: 60px 40px; }
+  #sae .inner { max-width: 1000px; margin: 0 auto; }
+  .sae-box { background: white; border: 1px solid #ddd; overflow: hidden; }
+  .sae-header { background: #1B4F8A; color: white; padding: 25px 30px; }
+  .sae-header .ref { font-size: 0.78rem; opacity: 0.8; margin-bottom: 5px; }
+  .sae-header h3 { font-size: 1.3rem; font-weight: 700; }
+  .sae-header .sous { font-size: 0.85rem; opacity: 0.85; margin-top: 5px; }
+  .sae-body { padding: 25px 30px; }
+  .sae-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .sae-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #1B4F8A; font-weight: 700; margin-bottom: 12px; }
+  .phase-item { border-left: 3px solid #1B4F8A; padding: 8px 12px; margin-bottom: 10px; background: #f4f7fb; }
+  .phase-item .phase-titre { font-size: 0.8rem; font-weight: 700; color: #1B4F8A; }
+  .phase-item p { font-size: 0.85rem; color: #555; margin-top: 3px; }
+  .sae-col ul { list-style: none; }
+  .sae-col ul li { font-size: 0.88rem; color: #555; padding: 6px 0; border-bottom: 1px solid #eee; }
+  .sae-col ul li::before { content: "→ "; color: #1B4F8A; font-weight: 700; }
+  .sae-bilan { background: #f4f7fb; border-left: 4px solid #1B4F8A; padding: 15px; margin-top: 20px; font-size: 0.88rem; color: #444; font-style: italic; line-height: 1.6; }
 
-  #competences { background: var(--bg-section); }
-  .comp-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-  .comp-card { background: var(--bg-alt); border: 1px solid #D8E4F0; padding: 2rem; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
-  .comp-card:hover { border-color: var(--blue-light); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(27,79,138,0.1); }
-  .comp-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--blue-light); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-  .comp-card:hover::after { transform: scaleX(1); }
-  .comp-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-  .comp-title { font-weight: 700; color: var(--dark); margin-bottom: 0.8rem; font-size: 1rem; }
-  .comp-list { list-style: none; }
-  .comp-list li { font-size: 0.88rem; color: var(--text-muted); padding: 0.3rem 0; border-bottom: 1px solid #D8E4F0; display: flex; align-items: center; gap: 0.5rem; }
-  .comp-list li::before { content: '▸'; color: var(--blue-light); font-size: 0.7rem; flex-shrink: 0; }
-  .badge { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.63rem; padding: 0.15rem 0.5rem; letter-spacing: 1px; margin-left: auto; flex-shrink: 0; background: rgba(46,109,180,0.1); border: 1px solid rgba(46,109,180,0.25); color: var(--blue-light); }
-  .badge.green { background: rgba(61,170,110,0.1); border-color: rgba(61,170,110,0.3); color: var(--green); }
+  /* PROJET PRO */
+  .projet-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; }
+  .offre-box { border: 1px solid #ddd; overflow: hidden; }
+  .offre-header { background: #1B4F8A; color: white; padding: 20px; }
+  .offre-header h3 { font-size: 1.1rem; font-weight: 700; }
+  .offre-header p { font-size: 0.82rem; opacity: 0.85; margin-top: 3px; }
+  .offre-body { padding: 20px; }
+  .offre-ligne { padding: 8px 0; border-bottom: 1px solid #eee; display: flex; gap: 10px; font-size: 0.88rem; }
+  .offre-label { font-weight: 700; color: #1B4F8A; min-width: 80px; }
+  .offre-note { background: #f4f7fb; border-left: 3px solid #1B4F8A; padding: 12px; margin-top: 15px; font-size: 0.85rem; color: #555; font-style: italic; }
+  .motiv h3 { font-size: 1rem; font-weight: 700; color: #1B4F8A; margin-bottom: 12px; }
+  .motiv p { font-size: 0.9rem; color: #555; line-height: 1.7; margin-bottom: 12px; }
+  .comp-bilan { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.85rem; }
+  .comp-bilan th { background: #1B4F8A; color: white; padding: 8px 12px; text-align: left; }
+  .comp-bilan td { padding: 8px 12px; border-bottom: 1px solid #eee; color: #444; }
+  .comp-bilan tr:hover td { background: #f4f7fb; }
 
-  #experiences { background: var(--bg-alt); }
-  .exp-grid { display: grid; gap: 1.5rem; }
-  .exp-card { background: var(--bg-section); border: 1px solid #D8E4F0; display: grid; grid-template-columns: 200px 1fr; overflow: hidden; transition: border-color 0.3s, box-shadow 0.3s; }
-  .exp-card:hover { border-color: var(--blue-light); box-shadow: 0 8px 24px rgba(27,79,138,0.08); }
-  .exp-sidebar { background: var(--dark-2); padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
-  .exp-year { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; color: var(--accent-light); line-height: 1; }
-  .exp-company { font-size: 0.75rem; color: var(--muted); font-family: 'DM Mono', monospace; letter-spacing: 1px; margin-top: 0.4rem; }
-  .exp-type { font-size: 0.63rem; letter-spacing: 2px; text-transform: uppercase; background: rgba(46,109,180,0.2); color: #7AAEDB; padding: 0.3rem 0.7rem; width: fit-content; margin-top: auto; font-family: 'DM Mono', monospace; }
-  .exp-type.terrain { background: rgba(61,170,110,0.2); color: #5DC88A; }
-  .exp-body { padding: 2rem; }
-  .exp-title { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
-  .exp-role { font-size: 0.85rem; color: var(--blue-light); margin-bottom: 1rem; font-style: italic; }
-  .exp-desc { color: #3A5068; font-size: 0.93rem; margin-bottom: 1rem; }
-  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .exp-tag { background: var(--bg-alt); color: var(--text-muted); font-size: 0.68rem; padding: 0.25rem 0.7rem; letter-spacing: 1px; font-family: 'DM Mono', monospace; border: 1px solid #D8E4F0; }
+  /* FOOTER */
+  footer { background: #1B4F8A; color: white; text-align: center; padding: 30px 40px; margin-top: 0; }
+  footer p { font-size: 0.85rem; opacity: 0.85; margin-bottom: 5px; }
+  footer .footer-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
 
-  #sae { background: var(--bg-section); }
-  .sae-card { background: var(--bg-alt); border: 1px solid #D8E4F0; overflow: hidden; }
-  .sae-header { background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%); padding: 2.5rem 3rem; display: flex; justify-content: space-between; align-items: start; }
-  .sae-ref { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent-light); letter-spacing: 2px; margin-bottom: 0.5rem; }
-  .sae-title { font-family: 'Bebas Neue', cursive; font-size: 2.2rem; letter-spacing: 2px; color: var(--white); }
-  .sae-subtitle { color: var(--muted); font-size: 0.88rem; margin-top: 0.3rem; }
-  .sae-badge { background: var(--blue-light); color: white; padding: 0.5rem 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; white-space: nowrap; }
-  .sae-body { padding: 2.5rem 3rem; }
-  .sae-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .sae-col h4 { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--blue-light); font-family: 'DM Mono', monospace; margin-bottom: 1rem; }
-  .sae-phases { display: grid; gap: 0.8rem; }
-  .phase { background: var(--bg-section); border: 1px solid #D8E4F0; border-left: 3px solid var(--blue-light); padding: 1rem 1.2rem; }
-  .phase-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--blue-light); letter-spacing: 1px; }
-  .phase-desc { font-size: 0.88rem; color: #3A5068; margin-top: 0.3rem; }
-  .sae-list { list-style: none; }
-  .sae-list li { padding: 0.5rem 0; border-bottom: 1px solid #D8E4F0; font-size: 0.9rem; color: #3A5068; display: flex; align-items: center; gap: 0.6rem; }
-  .sae-list li::before { content: '◆'; color: var(--blue-light); font-size: 0.5rem; flex-shrink: 0; }
-  .sae-bilan { background: rgba(46,109,180,0.06); border: 1px solid rgba(46,109,180,0.15); border-left: 3px solid var(--blue-light); padding: 1.5rem; margin-top: 2rem; font-size: 0.93rem; color: #3A5068; font-style: italic; }
-
-  #projetpro { background: var(--bg-alt); }
-  .offre-wrapper { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
-  .offre-card { background: var(--bg-section); border: 1px solid #D8E4F0; overflow: hidden; box-shadow: 0 4px 20px rgba(27,79,138,0.07); }
-  .offre-card-header { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); padding: 1.8rem 2rem; }
-  .offre-card-header h3 { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 2px; color: white; }
-  .offre-card-header p { color: rgba(255,255,255,0.75); font-size: 0.85rem; margin-top: 0.2rem; }
-  .offre-card-body { padding: 1.8rem 2rem; }
-  .offre-item { padding: 0.7rem 0; border-bottom: 1px solid #EEF2F8; display: flex; gap: 1rem; }
-  .offre-item-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; width: 90px; flex-shrink: 0; }
-  .offre-item-value { font-size: 0.9rem; color: var(--dark); }
-  .offre-note { background: rgba(46,109,180,0.06); border-left: 2px solid var(--blue-light); padding: 1rem 1.2rem; margin-top: 1.2rem; font-size: 0.85rem; color: #3A5068; font-style: italic; }
-  .motivation-block h4 { font-family: 'Bebas Neue', cursive; font-size: 1.5rem; letter-spacing: 2px; color: var(--dark); margin-bottom: 1rem; }
-  .motivation-block p { color: #3A5068; font-size: 0.95rem; margin-bottom: 1.2rem; }
-  .motivation-block p strong { color: var(--blue-light); font-weight: 600; }
-  .comp-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-  .comp-table th { background: var(--dark-2); color: var(--muted); padding: 0.8rem 1rem; text-align: left; font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'DM Mono', monospace; }
-  .comp-table td { padding: 0.85rem 1rem; font-size: 0.88rem; border-bottom: 1px solid #EEF2F8; color: #3A5068; }
-  .comp-table tr:hover td { background: rgba(46,109,180,0.04); }
-  .niveau { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.63rem; padding: 0.2rem 0.6rem; letter-spacing: 1px; }
-  .niveau.acquis { background: rgba(61,170,110,0.1); color: var(--green); border: 1px solid rgba(61,170,110,0.3); }
-  .niveau.dev { background: rgba(46,109,180,0.1); color: var(--blue-light); border: 1px solid rgba(46,109,180,0.3); }
-
-  footer { background: var(--dark); border-top: 1px solid var(--dark-3); padding: 3rem 6rem; display: flex; justify-content: space-between; align-items: center; }
-  .footer-name { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 3px; color: var(--white); }
-  .footer-sub { color: var(--muted); font-size: 0.82rem; margin-top: 0.2rem; }
-  .footer-copy { color: var(--dark-4); font-size: 0.72rem; margin-top: 0.3rem; }
-  .footer-links { display: flex; gap: 2rem; }
-  .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; transition: color 0.3s; }
-  .footer-links a:hover { color: var(--accent-light); }
-
-  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 1024px) {
-    #hero { grid-template-columns: 1fr; } .hero-right { display: none; }
-    nav { padding: 1rem 1.5rem; } section { padding: 4rem 2rem; }
-    .about-grid, .perso-grid, .offre-wrapper { grid-template-columns: 1fr; gap: 2rem; }
-    .comp-grid { grid-template-columns: 1fr 1fr; }
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { flex-direction: column; padding: 50px 20px; text-align: center; }
+    .profil-grid, .perso-grid, .projet-grid, .comp-grid, .sae-grid { grid-template-columns: 1fr; }
     .exp-card { grid-template-columns: 1fr; }
-    .exp-sidebar { flex-direction: row; align-items: center; gap: 1.5rem; padding: 1.5rem; }
-    .sae-grid { grid-template-columns: 1fr; } .sae-header { flex-direction: column; gap: 1rem; } .sae-body { padding: 1.5rem; }
-    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem; }
-  }
-  @media (max-width: 640px) {
-    nav { padding: 1rem; } .nav-links { display: none; }
-    .hero-left { padding: 6rem 1.5rem 3rem; } section { padding: 3rem 1.5rem; }
-    .comp-grid { grid-template-columns: 1fr; }
+    section { padding: 40px 20px; }
+    nav ul { display: none; }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">MP</a>
-  <ul class="nav-links">
-    <li><a href="#about">Profil</a></li>
+  <a href="#hero" class="logo">Mathis PEIFFER</a>
+  <ul>
+    <li><a href="#profil">Profil</a></li>
     <li><a href="#parcours">Parcours</a></li>
     <li><a href="#personnalite">Personnalité</a></li>
     <li><a href="#competences">Compétences</a></li>
@@ -214,266 +207,342 @@
   </ul>
 </nav>
 
-<section id="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-left">
-    <div class="hero-tag">Portfolio 2025 – 2026</div>
-    <h1 class="hero-name">MATHIS<br><span>PEIFFER</span></h1>
-    <p class="hero-sub">Génie Civil · Travaux Publics</p>
-    <p class="hero-desc">Étudiant en 2ème année de BUT Génie Civil – Construction Durable à l'IUT Nancy-Brabois. Passionné par le terrain, l'organisation des chantiers et la conduite de travaux en VRD.</p>
-    <div class="hero-ctas">
-      <a href="#projetpro" class="btn-primary">Mon projet pro</a>
-      <a href="https://www.linkedin.com/in/mathis-peiffer-ab270a2b7" target="_blank" class="btn-outline">LinkedIn →</a>
+<!-- HERO -->
+<div class="hero" id="hero">
+  <img src="photo-mathis.jpeg" alt="Mathis PEIFFER">
+  <div class="hero-text">
+    <h1>Mathis PEIFFER</h1>
+    <h2>BUT Génie Civil – Construction Durable | Parcours Travaux Publics</h2>
+    <p>Étudiant en 2ème année à l'IUT Nancy-Brabois. Passionné par le terrain, les travaux publics et la conduite de chantier en VRD.</p>
+    <div class="hero-btns">
+      <a href="#projetpro" class="btn filled">Mon projet professionnel</a>
+      <a href="https://www.linkedin.com/in/mathis-peiffer-ab270a2b7" target="_blank" class="btn">LinkedIn</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-photo-wrap">
-      <img src="photo-mathis.jpeg" alt="Mathis PEIFFER">
+</div>
+
+<!-- PROFIL -->
+<section id="profil">
+  <div class="section-title">Mon Profil</div>
+  <div class="section-subtitle">Qui suis-je ?</div>
+  <div class="profil-grid">
+    <div class="profil-text">
+      <p>Passionné par le monde du bâtiment et des travaux publics depuis l'enfance, je suis convaincu que le génie civil est à la base de tout. Avant qu'un hôpital ouvre ses portes, avant que n'importe quel professionnel puisse exercer son métier, il faut que des techniciens aient construit les infrastructures, posé les réseaux, aménagé la voirie.</p>
+      <p>Mon parcours est atypique. Après une formation franco-allemande à l'ISFATES à Metz et un semestre en Erasmus au Luxembourg, j'ai fait le choix de rejoindre l'IUT Nancy-Brabois pour une formation plus technique et concrète, plus proche du terrain.</p>
+      <p>Depuis l'enfance, j'ai un maçon dans ma famille. J'ai très tôt mis la main à la pâte : béton, montage de murs, engins de chantier. Cette proximité avec le monde de la construction m'a donné le goût du concret.</p>
+      <p>Mon objectif : devenir conducteur de travaux en travaux publics, en commençant comme chef de chantier pour apprendre le terrain.</p>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num">4</span><span class="stat-label">Ans de chantier</span></div>
-      <div class="stat"><span class="stat-num">2</span><span class="stat-label">Pays étudiés</span></div>
-      <div class="stat"><span class="stat-num">TP</span><span class="stat-label">Parcours</span></div>
+    <div class="infos-box">
+      <div class="info-ligne">
+        <div class="label">Formation</div>
+        <div class="valeur">BUT GCCD — Travaux Publics<br>IUT Nancy-Brabois</div>
+      </div>
+      <div class="info-ligne">
+        <div class="label">Année</div>
+        <div class="valeur">2ème année — 2025/2026</div>
+      </div>
+      <div class="info-ligne">
+        <div class="label">Localisation</div>
+        <div class="valeur">Moselle Est (57) — Pays de Bitche</div>
+      </div>
+      <div class="info-ligne">
+        <div class="label">Objectif</div>
+        <div class="valeur">Conducteur de travaux VRD</div>
+      </div>
+      <a href="https://www.linkedin.com/in/mathis-peiffer-ab270a2b7" target="_blank" class="linkedin-link">Voir mon LinkedIn</a>
     </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="section-header fade-up">
-    <span class="section-num">01 — Qui suis-je</span>
-    <h2 class="section-title">MON <span>PROFIL</span></h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="about-grid fade-up">
-    <div class="about-text">
-      <p>Passionné par le monde du bâtiment et des travaux publics depuis l'enfance, je suis convaincu que le génie civil est à la base de tout. Avant qu'un hôpital ouvre ses portes, avant que n'importe quel professionnel puisse exercer son métier, il faut que des techniciens aient <strong>construit les infrastructures, posé les réseaux, aménagé la voirie</strong>. C'est ce rôle fondateur qui me fascine.</p>
-      <p>Mon parcours est atypique. Après une formation franco-allemande à l'ISFATES à Metz et un semestre en Erasmus au Luxembourg, j'ai fait le choix délibéré de rejoindre l'IUT Nancy-Brabois pour une formation plus <strong>technique et concrète</strong>.</p>
-      <p>Depuis l'enfance, j'ai un maçon dans ma famille. J'ai très tôt mis la main à la pâte : béton, montage de murs, engins de chantier. Cette proximité avec le monde de la construction m'a donné le goût du concret et l'envie de comprendre <strong>comment les choses se construisent vraiment</strong>.</p>
-      <p>Mon objectif est de devenir <strong>conducteur de travaux en travaux publics</strong>, en commençant par le terrain comme chef de chantier.</p>
-    </div>
-    <div>
-      <div class="info-block"><div class="info-block-label">Formation</div><div class="info-block-value">BUT GCCD — Travaux Publics<br>IUT Nancy-Brabois</div></div>
-      <div class="info-block"><div class="info-block-label">Année</div><div class="info-block-value">2ème année — 2025/2026</div></div>
-      <div class="info-block"><div class="info-block-label">Localisation</div><div class="info-block-value">Moselle Est (57) — Pays de Bitche</div></div>
-      <div class="info-block"><div class="info-block-label">Objectif</div><div class="info-block-value">Conducteur de travaux VRD</div></div>
-      <a href="https://www.linkedin.com/in/mathis-peiffer-ab270a2b7" target="_blank" class="linkedin-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-        Voir mon LinkedIn
-      </a>
-    </div>
-  </div>
-</section>
+<!-- PARCOURS -->
+<div id="parcours" style="background:#f4f7fb; padding: 60px 40px;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-title">Mon Parcours</div>
+    <div class="section-subtitle">Mon itinéraire scolaire et professionnel</div>
 
-<section id="parcours">
-  <div class="section-header fade-up">
-    <span class="section-num">02 — Itinéraire</span>
-    <h2 class="section-title">MON <span>PARCOURS</span></h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="timeline fade-up">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2021 — Baccalauréat</div>
-      <div class="timeline-title">Bac Général — Mathématiques · Physique-Chimie</div>
-      <div class="timeline-place">Lycée Louis Casimir Teyssier, Bitche (57)</div>
-      <div class="timeline-desc">Obtention du baccalauréat général. Bases scientifiques solides pour une orientation vers le génie civil.</div>
+    <div class="etape">
+      <div class="etape-annee">2021</div>
+      <div class="etape-contenu">
+        <h3>Baccalauréat Général — Mathématiques & Physique-Chimie</h3>
+        <div class="lieu">Lycée Louis Casimir Teyssier, Bitche (57)</div>
+        <p>Obtention du baccalauréat général. Bases scientifiques solides pour une orientation vers le génie civil.</p>
+      </div>
     </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2021 – 2023 — ISFATES & Erasmus</div>
-      <div class="timeline-title">Formation franco-allemande en Génie Civil & Management</div>
-      <div class="timeline-place">ISFATES, Metz — puis Erasmus au Luxembourg</div>
-      <div class="timeline-desc">Deux ans en formation franco-allemande. Visite d'ArcelorMittal à Esch-sur-Alzette et chantiers TP aux alentours de Metz. Prise de conscience que je souhaitais un cursus plus technique et ancré dans la pratique du terrain.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2023 – Aujourd'hui — BUT GCCD</div>
-      <div class="timeline-title">BUT Génie Civil – Construction Durable, Parcours Travaux Publics</div>
-      <div class="timeline-place">IUT Nancy-Brabois, Université de Lorraine</div>
-      <div class="timeline-desc">Formation en dimensionnement, topographie, voirie, réseaux, assainissement, organisation de chantier, DAO/CAO. Stage chez Visconti TP en 2ème année.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">2026 – 2027 — Alternance</div>
-      <div class="timeline-title">3ème année BUT en alternance — Visconti TP</div>
-      <div class="timeline-place">Rémering-lès-Puttelange (57)</div>
-      <div class="timeline-desc">Poursuite en alternance chez Visconti TP. Objectif : développer les compétences d'encadrement, d'organisation de chantier et de gestion administrative en conditions réelles.</div>
-    </div>
-  </div>
-</section>
 
+    <div class="etape">
+      <div class="etape-annee">2021 – 2023</div>
+      <div class="etape-contenu">
+        <h3>Formation franco-allemande en Génie Civil & Management</h3>
+        <div class="lieu">ISFATES, Metz — puis Erasmus au Luxembourg</div>
+        <p>Deux ans en formation franco-allemande avec une dimension internationale. Visite d'ArcelorMittal à Esch-sur-Alzette et chantiers TP aux alentours de Metz. Prise de conscience que je souhaitais un cursus plus technique et ancré dans la pratique du terrain.</p>
+      </div>
+    </div>
+
+    <div class="etape">
+      <div class="etape-annee">2023 – Auj.</div>
+      <div class="etape-contenu">
+        <h3>BUT Génie Civil – Construction Durable, Parcours Travaux Publics</h3>
+        <div class="lieu">IUT Nancy-Brabois, Université de Lorraine</div>
+        <p>Formation en dimensionnement, topographie, voirie, réseaux, assainissement, organisation de chantier, AutoCAD, Revit, Mensura. Stage chez Visconti TP en 2ème année.</p>
+      </div>
+    </div>
+
+    <div class="etape">
+      <div class="etape-annee">2026 – 2027</div>
+      <div class="etape-contenu">
+        <h3>3ème année en alternance — Visconti TP</h3>
+        <div class="lieu">Rémering-lès-Puttelange (57)</div>
+        <p>Poursuite en alternance pour la 3ème année du BUT. Développement des compétences d'encadrement et de gestion de chantier en conditions réelles.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONNALITE -->
 <section id="personnalite">
-  <div class="section-header fade-up">
-    <span class="section-num">03 — Qui je suis</span>
-    <h2 class="section-title on-dark">PERSONNALITÉ <span>&amp;</span> IKIGAI</h2>
-    <div class="section-line gold"></div>
-  </div>
-  <div class="perso-grid fade-up">
-    <div class="mbti-card">
+  <div class="section-title">Personnalité & Ikigai</div>
+  <div class="section-subtitle">Qui je suis, ce qui me motive</div>
+  <div class="perso-grid">
+    <div class="mbti-box">
       <div class="mbti-type">ESFJ-T</div>
-      <div class="mbti-name">Le Consul — 16Personalities</div>
-      <div class="trait-bar"><div class="trait-header"><span class="trait-name">Énergie — Extraverti</span><span class="trait-pct">82%</span></div><div class="bar-bg"><div class="bar-fill" style="width:82%"></div></div></div>
-      <div class="trait-bar"><div class="trait-header"><span class="trait-name">Esprit — Observateur</span><span class="trait-pct">65%</span></div><div class="bar-bg"><div class="bar-fill" style="width:65%"></div></div></div>
-      <div class="trait-bar"><div class="trait-header"><span class="trait-name">Caractère — Sensible</span><span class="trait-pct">67%</span></div><div class="bar-bg"><div class="bar-fill" style="width:67%"></div></div></div>
-      <div class="trait-bar"><div class="trait-header"><span class="trait-name">Tactiques — Organisé</span><span class="trait-pct">61%</span></div><div class="bar-bg"><div class="bar-fill" style="width:61%"></div></div></div>
-      <div class="trait-bar"><div class="trait-header"><span class="trait-name">Identité — Agité</span><span class="trait-pct">54%</span></div><div class="bar-bg"><div class="bar-fill" style="width:54%"></div></div></div>
-      <p class="mbti-desc">Organisé, extraverti et à l'écoute des autres, je crée naturellement de la cohésion au sein des équipes. Mon sens pratique et mon goût pour la responsabilité sont des atouts au quotidien sur le chantier.</p>
+      <div class="mbti-nom">Le Consul — 16Personalities</div>
+      <div class="trait">
+        <div class="trait-label"><span>Énergie — Extraverti</span><span class="trait-pct">82%</span></div>
+        <div class="barre-bg"><div class="barre-fill" style="width:82%"></div></div>
+      </div>
+      <div class="trait">
+        <div class="trait-label"><span>Esprit — Observateur</span><span class="trait-pct">65%</span></div>
+        <div class="barre-bg"><div class="barre-fill" style="width:65%"></div></div>
+      </div>
+      <div class="trait">
+        <div class="trait-label"><span>Caractère — Sensible</span><span class="trait-pct">67%</span></div>
+        <div class="barre-bg"><div class="barre-fill" style="width:67%"></div></div>
+      </div>
+      <div class="trait">
+        <div class="trait-label"><span>Tactiques — Organisé</span><span class="trait-pct">61%</span></div>
+        <div class="barre-bg"><div class="barre-fill" style="width:61%"></div></div>
+      </div>
+      <div class="trait">
+        <div class="trait-label"><span>Identité — Agité</span><span class="trait-pct">54%</span></div>
+        <div class="barre-bg"><div class="barre-fill" style="width:54%"></div></div>
+      </div>
+      <p class="mbti-desc">Organisé, extraverti et à l'écoute des autres, je crée naturellement de la cohésion dans les équipes. Mon sens pratique et mon goût pour la responsabilité sont des atouts sur le chantier.</p>
     </div>
-    <div class="ikigai-section">
-      <h3>MON IKIGAI</h3>
+    <div class="ikigai-box">
+      <h3>Mon Ikigai</h3>
       <p>Le point d'équilibre entre ce que j'aime, ce en quoi je suis doué, ce dont le monde a besoin et ce pour quoi je peux être rémunéré.</p>
-      <div class="ikigai-img-wrap">
-        <img src="ikigai.jpeg" alt="Mon Ikigai — Mathis PEIFFER">
-      </div>
+      <img src="ikigai.jpeg" alt="Mon Ikigai">
       <div class="ikigai-resume">
-        <div class="ikigai-resume-label">Mon Ikigai en résumé</div>
-        <div class="ikigai-resume-text">Exercer un métier d'encadrement en travaux publics — chef de chantier puis conducteur de travaux — où j'allie action terrain, organisation et travail d'équipe pour construire des infrastructures utiles à la société.</div>
+        Mon Ikigai : Exercer un métier d'encadrement en travaux publics — chef de chantier puis conducteur de travaux — où j'allie action terrain, organisation et travail d'équipe pour contribuer à des infrastructures utiles.
       </div>
     </div>
   </div>
 </section>
 
-<section id="competences">
-  <div class="section-header fade-up">
-    <span class="section-num">04 — Savoir-faire</span>
-    <h2 class="section-title">MES <span>COMPÉTENCES</span></h2>
-    <div class="section-line"></div>
+<!-- COMPETENCES -->
+<div id="competences" style="background:#f4f7fb; padding: 60px 40px;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-title">Mes Compétences</div>
+    <div class="section-subtitle">Techniques, logiciels et savoir-être</div>
+    <div class="comp-grid">
+      <div class="comp-card">
+        <h3>🖥️ Logiciels</h3>
+        <ul>
+          <li>AutoCAD <span class="tag ok">Acquis</span></li>
+          <li>Revit <span class="tag ec">En cours</span></li>
+          <li>Mensura <span class="tag ok">Acquis</span></li>
+          <li>Dialux <span class="tag ec">En cours</span></li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h3>🏗️ Techniques BTP</h3>
+        <ul>
+          <li>VRD & réseaux <span class="tag ok">Acquis</span></li>
+          <li>Terrassement <span class="tag ok">Acquis</span></li>
+          <li>Gros œuvre <span class="tag ok">Acquis</span></li>
+          <li>Dimensionnement <span class="tag ec">En cours</span></li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h3>📐 Bureau & Conception</h3>
+        <ul>
+          <li>Lecture de plans <span class="tag ok">Acquis</span></li>
+          <li>Topographie <span class="tag ec">En cours</span></li>
+          <li>AEP / Assainissement <span class="tag ok">Acquis</span></li>
+          <li>DAO / CAO <span class="tag ec">En cours</span></li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h3>📋 Organisation</h3>
+        <ul>
+          <li>Phasage & Gantt <span class="tag ok">Acquis</span></li>
+          <li>Signalisation <span class="tag ok">Acquis</span></li>
+          <li>Analyse des risques <span class="tag ok">Acquis</span></li>
+          <li>Gestion équipes <span class="tag ec">En cours</span></li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h3>🚜 Engins & Terrain</h3>
+        <ul>
+          <li>Mini-pelle <span class="tag ok">Acquis</span></li>
+          <li>Télescopique <span class="tag ok">Acquis</span></li>
+          <li>Matériel VRD <span class="tag ok">Acquis</span></li>
+          <li>Sécurité chantier <span class="tag ec">En cours</span></li>
+        </ul>
+      </div>
+      <div class="comp-card">
+        <h3>🤝 Savoir-être</h3>
+        <ul>
+          <li>Esprit d'équipe <span class="tag ok">Fort</span></li>
+          <li>Prise d'initiative <span class="tag ok">Fort</span></li>
+          <li>Adaptabilité <span class="tag ok">Fort</span></li>
+          <li>Organisation <span class="tag ok">Fort</span></li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="comp-grid fade-up">
-    <div class="comp-card"><span class="comp-icon">🖥️</span><div class="comp-title">Logiciels & Outils</div><ul class="comp-list"><li>AutoCAD <span class="badge green">Acquis</span></li><li>Revit <span class="badge">En cours</span></li><li>Mensura <span class="badge green">Acquis</span></li><li>Dialux <span class="badge">En cours</span></li></ul></div>
-    <div class="comp-card"><span class="comp-icon">🏗️</span><div class="comp-title">Techniques BTP</div><ul class="comp-list"><li>VRD & réseaux humides <span class="badge green">Acquis</span></li><li>Terrassement <span class="badge green">Acquis</span></li><li>Gros œuvre / maçonnerie <span class="badge green">Acquis</span></li><li>Dimensionnement <span class="badge">En cours</span></li></ul></div>
-    <div class="comp-card"><span class="comp-icon">📐</span><div class="comp-title">Conception & Bureau</div><ul class="comp-list"><li>Lecture de plans <span class="badge green">Acquis</span></li><li>Topographie <span class="badge">En cours</span></li><li>DAO / CAO <span class="badge">En cours</span></li><li>Assainissement / AEP <span class="badge green">Acquis</span></li></ul></div>
-    <div class="comp-card"><span class="comp-icon">📋</span><div class="comp-title">Organisation chantier</div><ul class="comp-list"><li>Phasage & Gantt <span class="badge green">Acquis</span></li><li>Gestion équipes <span class="badge">En cours</span></li><li>Signalisation <span class="badge green">Acquis</span></li><li>Analyse des risques <span class="badge green">Acquis</span></li></ul></div>
-    <div class="comp-card"><span class="comp-icon">🚜</span><div class="comp-title">Engins & Terrain</div><ul class="comp-list"><li>Mini-pelle <span class="badge green">Acquis</span></li><li>Télescopique <span class="badge green">Acquis</span></li><li>Matériel VRD <span class="badge green">Acquis</span></li><li>Sécurité chantier <span class="badge">En cours</span></li></ul></div>
-    <div class="comp-card"><span class="comp-icon">🤝</span><div class="comp-title">Savoir-être</div><ul class="comp-list"><li>Esprit d'équipe <span class="badge green">Fort</span></li><li>Prise d'initiative <span class="badge green">Fort</span></li><li>Adaptabilité <span class="badge green">Fort</span></li><li>Organisation <span class="badge green">Fort</span></li></ul></div>
-  </div>
-</section>
+</div>
 
+<!-- EXPERIENCES -->
 <section id="experiences">
-  <div class="section-header fade-up">
-    <span class="section-num">05 — Terrain</span>
-    <h2 class="section-title">MES <span>EXPÉRIENCES</span></h2>
-    <div class="section-line"></div>
+  <div class="section-title">Mes Expériences</div>
+  <div class="section-subtitle">Terrain, stages et visites professionnelles</div>
+
+  <div class="exp-card">
+    <div class="exp-gauche">
+      <div class="exp-annee">2026</div>
+      <div class="exp-entreprise">Visconti TP<br>Rémering-lès-Puttelange</div>
+      <div class="exp-type">Stage</div>
+    </div>
+    <div class="exp-droite">
+      <h3>Assistant Chef de Chantier</h3>
+      <div class="role">2ème année BUT GCCD — Travaux Publics</div>
+      <p>Travail en appui direct du chef de chantier sur plusieurs chantiers d'assainissement, AEP et voirie en Moselle Est. Suivi des phases de terrassement, pose de canalisations, raccordements et remise en état de voirie. Participation aux réunions de chantier et lecture de plans sur le terrain.</p>
+    </div>
   </div>
-  <div class="exp-grid fade-up">
-    <div class="exp-card">
-      <div class="exp-sidebar"><div><div class="exp-year">2026</div><div class="exp-company">Visconti TP<br>Rémering-lès-Puttelange</div></div><div class="exp-type">Stage</div></div>
-      <div class="exp-body"><div class="exp-title">Stage — Assistant Chef de Chantier</div><div class="exp-role">2ème année BUT GCCD — Travaux Publics</div><div class="exp-desc">Travail en appui direct du chef de chantier sur plusieurs chantiers d'assainissement, AEP et voirie en Moselle Est. Suivi des phases de terrassement, pose de canalisations, raccordements et remise en état de voirie.</div><div class="exp-tags"><span class="exp-tag">AEP</span><span class="exp-tag">Assainissement</span><span class="exp-tag">Voirie</span><span class="exp-tag">Terrassement</span></div></div>
+
+  <div class="exp-card">
+    <div class="exp-gauche">
+      <div class="exp-annee">2020–2026</div>
+      <div class="exp-entreprise">Chantiers familiaux<br>Moselle Est</div>
+      <div class="exp-type">Terrain</div>
     </div>
-    <div class="exp-card">
-      <div class="exp-sidebar"><div><div class="exp-year">2020–<br>2026</div><div class="exp-company">Chantiers familiaux<br>Moselle Est</div></div><div class="exp-type terrain">Terrain</div></div>
-      <div class="exp-body"><div class="exp-title">Chantiers de maçonnerie — Expérience pratique</div><div class="exp-role">Étés et vacances scolaires — depuis 4 ans</div><div class="exp-desc">Montage de murs, coffrage, ferraillage, coulage de poutres, poteaux et dalles. Utilisation d'engins de chantier (mini-pelle, télescopique). Aisance technique et compréhension concrète de l'organisation d'un chantier.</div><div class="exp-tags"><span class="exp-tag">Coffrage</span><span class="exp-tag">Ferraillage</span><span class="exp-tag">Mini-pelle</span><span class="exp-tag">Gros œuvre</span></div></div>
+    <div class="exp-droite">
+      <h3>Chantiers de maçonnerie — Expérience pratique</h3>
+      <div class="role">Étés et vacances scolaires — depuis 4 ans</div>
+      <p>Montage de murs, coffrage, ferraillage, coulage de poutres, poteaux et dalles. Utilisation d'engins de chantier (mini-pelle, télescopique). Compréhension concrète de l'organisation d'un chantier et des méthodes du gros œuvre.</p>
     </div>
-    <div class="exp-card">
-      <div class="exp-sidebar"><div><div class="exp-year">2022</div><div class="exp-company">ISFATES & Erasmus<br>Metz / Luxembourg</div></div><div class="exp-type">Visite pro</div></div>
-      <div class="exp-body"><div class="exp-title">Visites professionnelles — ArcelorMittal & chantiers TP</div><div class="exp-role">ISFATES Metz — Erasmus Luxembourg</div><div class="exp-desc">Visite du site ArcelorMittal à Esch-sur-Alzette et chantiers TP dans la région de Metz. Ouverture à la dimension internationale du secteur.</div><div class="exp-tags"><span class="exp-tag">ArcelorMittal</span><span class="exp-tag">Luxembourg</span><span class="exp-tag">International</span></div></div>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-gauche">
+      <div class="exp-annee">2022</div>
+      <div class="exp-entreprise">ISFATES & Erasmus<br>Metz / Luxembourg</div>
+      <div class="exp-type">Visite pro</div>
+    </div>
+    <div class="exp-droite">
+      <h3>Visites professionnelles — ArcelorMittal & chantiers TP</h3>
+      <div class="role">ISFATES Metz — Erasmus Luxembourg</div>
+      <p>Visite du site industriel ArcelorMittal à Esch-sur-Alzette et de chantiers de travaux publics dans la région de Metz. Ouverture à la dimension internationale du secteur.</p>
     </div>
   </div>
 </section>
 
-<section id="sae">
-  <div class="section-header fade-up">
-    <span class="section-num">05b — Projet académique</span>
-    <h2 class="section-title">SAÉ <span>PHASAGE</span></h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="sae-card fade-up">
-    <div class="sae-header">
-      <div><div class="sae-ref">SAÉ 3.05 — MGM — GCCD_Gc32 — 2025/2026</div><div class="sae-title">Réfection de l'Aire de Faverosse (A31)</div><div class="sae-subtitle">Avec Mikail SESSIZ · Encadrant : M. Thierry LARTISANT</div></div>
-      <div class="sae-badge">Lot 2 — Voirie & Enrobés</div>
-    </div>
-    <div class="sae-body">
-      <div class="sae-grid">
-        <div class="sae-col">
-          <h4>Phasage des travaux — 7 jours effectifs</h4>
-          <div class="sae-phases">
-            <div class="phase"><div class="phase-label">J1 – J2 · Phase 1 · 3 183 m²</div><div class="phase-desc">Rabotage, préparation, reprise de bordures dégradées, enrobés, réouverture.</div></div>
-            <div class="phase"><div class="phase-label">J3 – J4 · Phase 2 · 2 980 m²</div><div class="phase-desc">Rabotage, ajustement des bordures existantes, enrobés, réouverture.</div></div>
-            <div class="phase"><div class="phase-label">J5 · Phase 3 · 605 m²</div><div class="phase-desc">Rabotage + enrobés dans la même journée. Intervention rapide, même équipe.</div></div>
+<!-- SAE -->
+<div id="sae" style="background:#f4f7fb; padding: 60px 40px;">
+  <div style="max-width:1000px; margin:0 auto;">
+    <div class="section-title">SAÉ Phasage</div>
+    <div class="section-subtitle">Projet académique — MGM Organisation de chantier</div>
+    <div class="sae-box">
+      <div class="sae-header">
+        <div class="ref">SAÉ 3.05 — MGM — GCCD_Gc32 — 2025/2026</div>
+        <h3>Réfection de l'Aire de Faverosse (A31)</h3>
+        <div class="sous">Avec Mikail SESSIZ · Encadrant : M. Thierry LARTISANT · Lot 2 — Voirie & Enrobés</div>
+      </div>
+      <div class="sae-body">
+        <div class="sae-grid">
+          <div class="sae-col">
+            <h4>Phasage — 7 jours effectifs</h4>
+            <div class="phase-item">
+              <div class="phase-titre">Phase 1 (J1-J2) — 3 183 m²</div>
+              <p>Rabotage, préparation, reprise de bordures, enrobés, réouverture.</p>
+            </div>
+            <div class="phase-item">
+              <div class="phase-titre">Phase 2 (J3-J4) — 2 980 m²</div>
+              <p>Rabotage, ajustement bordures existantes, enrobés, réouverture.</p>
+            </div>
+            <div class="phase-item">
+              <div class="phase-titre">Phase 3 (J5) — 605 m²</div>
+              <p>Rabotage + enrobés dans la même journée.</p>
+            </div>
+          </div>
+          <div class="sae-col">
+            <h4>Contraintes gérées</h4>
+            <ul>
+              <li>50% des places maintenues en permanence</li>
+              <li>Procédures APRR — balisage et validations</li>
+              <li>Coactivité usagers / engins / personnel</li>
+              <li>Délais : 14j préparation + 7j travaux</li>
+              <li>Planning Gantt et analyse des risques</li>
+              <li>Signalisation temporaire</li>
+            </ul>
           </div>
         </div>
-        <div class="sae-col">
-          <h4>Contraintes majeures gérées</h4>
-          <ul class="sae-list">
-            <li>Maintien de 50% des places VL et PL disponibles en permanence</li>
-            <li>Procédures APRR — balisage, horaires, validations</li>
-            <li>Coactivité entre usagers, engins et personnel de chantier</li>
-            <li>Délais contractuels : 14j préparation + 7j travaux effectifs</li>
-            <li>Planning Gantt, choix des fournisseurs, analyse des risques</li>
-            <li>Plan de signalisation temporaire et gestion environnementale</li>
-          </ul>
+        <div class="sae-bilan">
+          <strong>Bilan :</strong> Ce projet m'a permis de développer des compétences en organisation et planification de chantier sous contraintes fortes — exactement ce qu'un chef de chantier doit maîtriser.
         </div>
       </div>
-      <div class="sae-bilan"><strong style="color:var(--blue-light)">Bilan :</strong> Ce projet m'a permis de développer des compétences concrètes en organisation et planification de chantier sous contraintes fortes — exactement ce qu'un chef de chantier puis conducteur de travaux doit maîtriser.</div>
     </div>
   </div>
-</section>
+</div>
 
+<!-- PROJET PRO -->
 <section id="projetpro">
-  <div class="section-header fade-up">
-    <span class="section-num">06 — Objectif</span>
-    <h2 class="section-title">MON PROJET <span>PROFESSIONNEL</span></h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="offre-wrapper fade-up">
-    <div>
-      <div class="offre-card">
-        <div class="offre-card-header"><h3>Chef de Chantier VRD</h3><p>Offre d'emploi sélectionnée — Visconti TP</p></div>
-        <div class="offre-card-body">
-          <div class="offre-item"><div class="offre-item-label">Entreprise</div><div class="offre-item-value">Visconti TP — Union Zénith</div></div>
-          <div class="offre-item"><div class="offre-item-label">Lieu</div><div class="offre-item-value">Rémering-lès-Puttelange (57)</div></div>
-          <div class="offre-item"><div class="offre-item-label">Contrat</div><div class="offre-item-value">CDI — Temps plein</div></div>
-          <div class="offre-item"><div class="offre-item-label">Secteur</div><div class="offre-item-value">VRD, réseaux, assainissement</div></div>
-          <div class="offre-item"><div class="offre-item-label">Source</div><div class="offre-item-value">visconti-tp.eu — juin 2026</div></div>
-          <div class="offre-note">J'ai choisi ce poste de <strong>Chef de Chantier</strong> comme première étape logique vers mon objectif de Conducteur de Travaux. On ne peut bien conduire des travaux qu'en ayant d'abord vécu le chantier de l'intérieur.</div>
-        </div>
+  <div class="section-title">Mon Projet Professionnel</div>
+  <div class="section-subtitle">De l'offre d'emploi à mon objectif de carrière</div>
+  <div class="projet-grid">
+    <div class="offre-box">
+      <div class="offre-header">
+        <h3>Chef de Chantier VRD</h3>
+        <p>Offre sélectionnée — Visconti TP</p>
+      </div>
+      <div class="offre-body">
+        <div class="offre-ligne"><span class="offre-label">Entreprise</span><span>Visconti TP — Union Zénith</span></div>
+        <div class="offre-ligne"><span class="offre-label">Lieu</span><span>Rémering-lès-Puttelange (57)</span></div>
+        <div class="offre-ligne"><span class="offre-label">Contrat</span><span>CDI — Temps plein</span></div>
+        <div class="offre-ligne"><span class="offre-label">Secteur</span><span>VRD, réseaux, assainissement</span></div>
+        <div class="offre-ligne"><span class="offre-label">Source</span><span>visconti-tp.eu — juin 2026</span></div>
+        <div class="offre-note">J'ai choisi ce poste de Chef de Chantier comme première étape vers mon objectif de Conducteur de Travaux. On ne peut bien conduire des travaux qu'en ayant d'abord vécu le chantier de l'intérieur.</div>
       </div>
     </div>
-    <div class="motivation-block">
-      <h4>Pourquoi ce poste, pourquoi Visconti TP ?</h4>
-      <p>Le métier de chef de chantier, c'est un métier d'<strong>action et de responsabilité</strong>. Ce qui m'attire, c'est la diversité des journées : lire des plans, coordonner les équipes, résoudre un imprévu, faire le point en fin de chantier.</p>
-      <p>Visconti TP est une <strong>PME à taille humaine</strong> où on apprend vite et on a de vraies responsabilités rapidement. L'ambiance de travail et la proximité avec l'encadrement m'ont convaincu lors de mon stage. Réactivité, esprit d'équipe et engagement environnemental sont des valeurs que je partage.</p>
-      <p>La <strong>finalité</strong> me motive profondément : poser des réseaux d'eau potable, construire de l'assainissement, aménager la voirie — contribuer concrètement à la qualité de vie des habitants de ma région.</p>
-      <table class="comp-table">
-        <thead><tr><th>Compétence requise</th><th>Comment acquise</th><th>Niveau</th></tr></thead>
+    <div class="motiv">
+      <h3>Pourquoi ce poste, pourquoi Visconti TP ?</h3>
+      <p>Le métier de chef de chantier, c'est un métier d'action et de responsabilité. Ce qui m'attire : la diversité des journées, coordonner les équipes, résoudre un imprévu et voir avancer le chantier.</p>
+      <p>Visconti TP est une PME à taille humaine où on apprend vite et où on a de vraies responsabilités. L'ambiance de travail m'a convaincu lors de mon stage. Réactivité, esprit d'équipe et engagement environnemental sont des valeurs que je partage.</p>
+      <p>La finalité me motive : contribuer concrètement à la qualité de vie des habitants de ma région en construisant des infrastructures utiles.</p>
+      <table class="comp-bilan">
+        <thead>
+          <tr><th>Compétence</th><th>Comment acquise</th><th>Niveau</th></tr>
+        </thead>
         <tbody>
-          <tr><td>Phasage & organisation</td><td>SAÉ MGM — Aire A31</td><td><span class="niveau acquis">Acquis</span></td></tr>
-          <tr><td>Travaux VRD terrain</td><td>Stage Visconti TP</td><td><span class="niveau acquis">Acquis</span></td></tr>
-          <tr><td>Utilisation d'engins</td><td>4 ans de chantiers maçonnerie</td><td><span class="niveau acquis">Acquis</span></td></tr>
-          <tr><td>Lecture de plans</td><td>BUT GCCD — AutoCAD / Revit</td><td><span class="niveau dev">En développement</span></td></tr>
-          <tr><td>Encadrement d'équipe</td><td>Stage + alternance à venir</td><td><span class="niveau dev">En développement</span></td></tr>
-          <tr><td>Sécurité chantier</td><td>BUT + application stage</td><td><span class="niveau dev">En développement</span></td></tr>
+          <tr><td>Phasage & organisation</td><td>SAÉ MGM — Aire A31</td><td>✅ Acquis</td></tr>
+          <tr><td>Travaux VRD terrain</td><td>Stage Visconti TP</td><td>✅ Acquis</td></tr>
+          <tr><td>Utilisation d'engins</td><td>4 ans maçonnerie</td><td>✅ Acquis</td></tr>
+          <tr><td>Lecture de plans</td><td>BUT — AutoCAD / Revit</td><td>🔵 En cours</td></tr>
+          <tr><td>Encadrement d'équipe</td><td>Stage + alternance</td><td>🔵 En cours</td></tr>
+          <tr><td>Sécurité chantier</td><td>BUT + stage</td><td>🔵 En cours</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div>
-    <div class="footer-name">MATHIS PEIFFER</div>
-    <div class="footer-sub">BUT GCCD — Travaux Publics — IUT Nancy-Brabois · 2025/2026</div>
-    <div class="footer-copy">Portfolio réalisé dans le cadre du PPP — H. Franoux</div>
-  </div>
-  <div class="footer-links">
-    <a href="#hero">Accueil</a><a href="#parcours">Parcours</a>
-    <a href="#experiences">Expériences</a><a href="#projetpro">Projet pro</a>
-    <a href="https://www.linkedin.com/in/mathis-peiffer-ab270a2b7" target="_blank">LinkedIn</a>
-  </div>
+  <div class="footer-name">Mathis PEIFFER</div>
+  <p>BUT GCCD — Travaux Publics — IUT Nancy-Brabois · 2025/2026</p>
+  <p>Portfolio réalisé dans le cadre du PPP — H. Franoux</p>
 </footer>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
-    navLinks.forEach(link => { link.style.color = link.getAttribute('href') === '#' + current ? 'var(--blue-light)' : ''; });
-  });
-</script>
 </body>
 </html>
